@@ -41,7 +41,8 @@ int wmain(int argc, wchar_t **argv) {
 			throw lro_error::from_other(err_msg::err_no_action, {});
 #ifdef LXRUNOFFLINE_VERSION
 		} else if (!wcscmp(argv[1], L"version")) {
-			std::wcout << L"LxRunOffline " << LXRUNOFFLINE_VERSION << '\n';
+//			std::wcout << L"LxRunOffline " << LXRUNOFFLINE_VERSION << '\n';
+			println(fast_io::wc_stdout,L"LxRunOffline ",fast_io::code_cvt(LXRUNOFFLINE_VERSION));
 #endif
 		} else if (!wcscmp(argv[1], L"l") || !wcscmp(argv[1], L"list")) {
 			for (crwstr s : list_distros()) {
