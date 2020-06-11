@@ -22,7 +22,7 @@ inline void write(crwstr output, const uint16_t color) {
 	if (ok) {
 		if (progress_printed && SetConsoleCursorPosition(hcon, { 0, ci.dwCursorPosition.Y })) {
 			if(ci.dwSize.X)[[likely]]
-				print(fast_io::wout,fast_io::fill_nc(ci.dwSize.X-1,L' '));
+				print(fast_io::wc_stdout,fast_io::fill_nc(ci.dwSize.X-1,L' '));
 			SetConsoleCursorPosition(hcon, { 0, ci.dwCursorPosition.Y });
 		}
 		SetConsoleTextAttribute(hcon, color);
