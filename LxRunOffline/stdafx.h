@@ -40,13 +40,14 @@
 #include <string>
 #include <type_traits>
 #include <vector>
-#include <string_view>
 
 #include <archive.h>
 #include <archive_entry.h>
 #include <boost/format.hpp>
 #include <boost/program_options.hpp>
 #include <tinyxml2.h>
+#include<fast_io/fast_io.h>
+#include<fast_io/fast_io_legacy.h>
 
 typedef std::wstring wstr;
 typedef const std::wstring &crwstr;

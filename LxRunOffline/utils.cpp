@@ -1,8 +1,6 @@
 ﻿#include "stdafx.h"
 #include "error.h"
 #include "utils.h"
-#include <fast_io/fast_io.h>
-//#include <fast_io/fast_io_legacy.h>
 
 const uint32_t win_build = []() {
 	OSVERSIONINFO ver;

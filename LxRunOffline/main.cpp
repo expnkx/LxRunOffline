@@ -4,7 +4,6 @@
 #include "reg.h"
 #include "shortcut.h"
 #include "utils.h"
-#include<fast_io/fast_io_legacy.h>
 
 namespace po = boost::program_options;
 
