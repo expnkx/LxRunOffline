@@ -335,7 +335,8 @@ int wmain(int argc, wchar_t **argv) {
 		log_error(from_utf8(e.what()));
 		std::stringstream ss;
 		ss << desc;
-		std::wcout << '\n' << from_utf8(ss.str().c_str());
+		print(fast_io::wc_stdout,L"\n",fast_io::code_cvt(std::string_view(ss.str())));
+//		std::wcout << '\n' << from_utf8(ss.str().c_str());
 	}
 	return 0;
 }

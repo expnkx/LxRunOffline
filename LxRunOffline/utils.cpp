@@ -1,6 +1,8 @@
 ﻿#include "stdafx.h"
 #include "error.h"
 #include "utils.h"
+#include <fast_io/fast_io.h>
+//#include <fast_io/fast_io_legacy.h>
 
 const uint32_t win_build = []() {
 	OSVERSIONINFO ver;
@@ -16,17 +18,18 @@ const uint32_t win_build = []() {
 const auto hcon = GetStdHandle(STD_ERROR_HANDLE);
 bool progress_printed;
 
-void write(crwstr output, const uint16_t color) {
+inline void write(crwstr output, const uint16_t color) {
 	CONSOLE_SCREEN_BUFFER_INFO ci;
 	const auto ok = hcon != INVALID_HANDLE_VALUE && GetConsoleScreenBufferInfo(hcon, &ci);
 	if (ok) {
 		if (progress_printed && SetConsoleCursorPosition(hcon, { 0, ci.dwCursorPosition.Y })) {
-			for (auto i = 0; i < ci.dwSize.X - 1; i++) std::wcout << L' ';
+			if(ci.dwSize.X)[[likely]]
+				print(fast_io::wout,fast_io::fill_nc(ci.dwSize.X-1,L' '));
 			SetConsoleCursorPosition(hcon, { 0, ci.dwCursorPosition.Y });
 		}
 		SetConsoleTextAttribute(hcon, color);
 	}
-	std::wcerr << output << '\n';
+	println(fast_io::werr,output);
 	if (ok) SetConsoleTextAttribute(hcon, ci.wAttributes);
 	progress_printed = false;
 }

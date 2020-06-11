@@ -40,6 +40,7 @@
 #include <string>
 #include <type_traits>
 #include <vector>
+#include <string_view>
 
 #include <archive.h>
 #include <archive_entry.h>
