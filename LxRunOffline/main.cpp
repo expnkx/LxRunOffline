@@ -277,18 +277,18 @@ int wmain(int argc, wchar_t **argv) {
 			parse_args();
 			reg_config conf;
 			conf.load_distro(name, config_all);
-			std::wcout
-				<< L"                        Name: " << name << '\n'
-				<< L"                 WSL version: " << (conf.is_wsl2() ? 2 : 1) << '\n'
-				<< L"          Filesystem version: " << get_distro_version(name) << '\n'
-				<< L"      Installation directory: " << get_distro_dir(name) << '\n'
-				<< L"     UID of the default user: " << conf.uid << '\n'
-				<< L"         Configuration flags: " << conf.get_flags() << '\n'
-				<< L" Default kernel command line: " << conf.kernel_cmd << '\n'
-				<< L"       Environment variables: ";
+			print(fast_io::wc_stdout,
+				L"                        Name: " , name , L"\n"
+				L"                 WSL version: " , (conf.is_wsl2() ? 2 : 1) , L"\n"
+				L"          Filesystem version: " , get_distro_version(name) , L"\n"
+				L"      Installation directory: " , get_distro_dir(name) , L"\n"
+				L"     UID of the default user: " , conf.uid , L"\n"
+				L"         Configuration flags: " , conf.get_flags() , L"\n"
+				L" Default kernel command line: " , conf.kernel_cmd , L"\n"
+				L"       Environment variables: ");
 			for (size_t i = 0; i < conf.env.size(); i++) {
-				if (i > 0) std::wcout << L"                              ";
-				std::wcout << conf.env[i] <<'\n';
+				if (i > 0) print(fast_io::wc_stdout, L"                              ");
+				println(fast_io::wc_stdout, conf.env[i]);
 			}
 		} else {
 			throw lro_error::from_other(err_msg::err_invalid_action, { argv[1] });
@@ -334,8 +334,7 @@ int wmain(int argc, wchar_t **argv) {
 		log_error(from_utf8(e.what()));
 		std::stringstream ss;
 		ss << desc;
-		print(fast_io::wc_stdout,L"\n",fast_io::code_cvt(std::string_view(ss.str())));
-//		std::wcout << '\n' << from_utf8(ss.str().c_str());
+		print(fast_io::wc_stderr,L"\n",fast_io::code_cvt(std::string_view(ss.str())));
 	}
 	return 0;
 }
